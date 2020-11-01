@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int i;
+int j;
+int main(void){
+const int rows = 2;//행의 개수
+int a = 20;//정수형 변수 
+int *p = &a;//정수형 포인트 변수
+int b[3]={1,2,3};//1차 배열
+int c[3]={4,5,6};//1차 배열
+int d[2][3]={{1,2,3},{4,5,6}};//2차 배열
+int (*pe)[3]=d;//배열 포인터
+int *pb=b;//포인터에 1차 배열 저장
+int *pc=c;//포인터에 1차 배열 저장
+int **pd=(int**)malloc(sizeof(int*)*2);//이중포인터 동적메모리 할당
+int **pt=(int**)malloc(sizeof(int*)*2);//이중포인터 동적메모리 할당
+    
+    pd[0]=pb;//이중포인터 첫번째행에 1차 배열이 저장된 포인터 저장
+    pd[1]=pc;//이중포인터 두번째행에 1차 배열이 저장된 포인터 저장
+    
+    for(i=0;i<2;i++){
+        pt[i]=pe[i];
+    }//이중포인터t의 각 행에 배열포인터의 각 행 저장 
+
+    printf("배열 포인터를 이용한 2차배열 출력\n");
+    for(i=0;i<2;i++){
+        for(j=0;j<3;j++){
+            printf("%d ", pe[i][j]);
+        }//배열 포인터를 이용한 2차배열 출력
+        printf("\n");
+    }
+    printf("\n");
+
+    printf("1차 배열 두개를 이용하여 이중포인터로 2차배열 출력\n");
+    for(i=0;i<2;i++){
+        for(j=0;j<3;j++){
+            printf("%d ", pd[i][j]);
+        }
+        printf("\n");
+    }//1차 배열 두개를 이용하여 이중포인터로 2차배열 출력
+    printf("\n");
+    free(pd);//메모리할당 해제
+    
+    printf("배열 포인터를 이용하여 이중포인터로 2차배열 출력\n");
+    for(i=0;i<2;i++){
+        for(j=0;j<3;j++){
+            printf("%d ", pt[i][j]);
+        }
+        printf("\n");
+    }//배열 포인터를 이용하여 이중포인터로 2차배열 출력
+    //출력 방법이 배열 포인터와 같아서 다소 의심이 되지만 일단 성공
+    printf("\n");
+    free(pt);//메모리할당 해제
+    
+    return 0;
+}
