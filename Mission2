@@ -1,0 +1,163 @@
+#include <stdio.h>
+static int SCORES;//version 1.0(add)
+const char* GRADES[] = {"A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"};//version 1.1(add)
+int NUMBER_OF_GRADES = 0;//version 1.1(add)
+int VARIABLE_OF_GRADES;//version 1.1(add)
+int main(void){
+	//version 1.0
+	table:
+	printf("\n [ 학점table ]version 1.0\n");
+	printf("┌──────────┬─────────┬─────────┬─────────┬─────────┬");
+	printf("─────────┬─────────┬─────────┬─────────┐\n");
+	printf("│    A+    │    A    │    B+   │    B    │    C+   │    C    │    D+   │    D    │    F    │\n");
+	printf("├──────────┼─────────┼─────────┼─────────┼─────────┼");
+	printf("─────────┼─────────┼─────────┼─────────┤\n");
+	printf("│ 100 ~ 95 │ 94 ~ 90 │ 89 ~ 85 │ 84 ~ 80 │ 79 ~ 75 │ 74 ~ 70 │ 69 ~ 65 │ 64 ~ 60 │ 59 ~ 0  │\n");
+	printf("└──────────┴─────────┴─────────┴─────────┴─────────┴");
+	printf("─────────┴─────────┴─────────┴─────────┘\n\n");
+	printf(" [ 학점 프로그램 ]\n\n * 종료를 원하시면 999를 입력하세요!!\n\n");
+	printf(" * 학점table 다시보기를 원하시면 1004(v1.0) 또는 1005(v1.1)을 입력하세요\n\n");//version 1.1 (add) 
+	printf(" * version 1.1을 원하시면 1001을 입력하세요\n\n");//version 1.1 (add) 
+	printf(" * version 1.0을 원하시면 1000을 입력하세요\n\n");//version 1.1 (add) 
+	version:
+		printf("\n version 1.0 \n\n");//version 1.1 (add)
+	again:
+	printf(" Q. 점수를 입력하세요 : ");
+	scanf("%d", &SCORES);
+	if (SCORES==999){
+	printf("\n 프로그램을 종료 합니다. *^^*\n\n");
+	return 0;
+	}
+	else if (SCORES==1001){
+	printf("\n version1.1로 이동합니다. *^^*\n\n");
+	goto version1;//version 1.1 (add) 
+	}
+	else if (SCORES==1000){
+	printf("\n version1.0로 이동합니다. *^^*\n\n");
+	goto again1;//version 1.1 (add) 
+	}
+	else if (SCORES==1004){
+	printf("\n version1.0로 이동합니다. *^^*\n\n");
+	goto table;//version 1.1 (add) 
+	}
+	else if (SCORES==1005){
+	printf("\n version1.1로 이동합니다. *^^*\n\n");
+	goto table1;//version 1.1 (add) 
+	}
+	else if (SCORES>100){
+	printf("\n ** %d 성적을 올바르게 입력해 주세요. *^^*\n\n",SCORES);
+	goto again;
+	}
+	else if (SCORES<0){
+	printf("\n ** %d 성적을 올바르게 입력해 주세요. \n\n",SCORES);
+	goto again;
+	}
+	else if (SCORES>=95){
+	printf("\n 잠은 자고 다니니!! 학점은 A+입니다. *^^*\n\n");
+	goto again;
+	}
+	else if (SCORES>=90){
+	printf("\n 밥은 먹고 다니니!! 학점은 A입니다. *^^*\n\n");
+	goto again;
+	}
+	else if (SCORES>=85){ 
+	printf("\n 괜찮아 잘했어!! 학점은 B+입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=80){
+	printf("\n 인간답다!! 학점은 B입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=75){
+	printf("\n 씨부레.....학점은 C+입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=70){
+	printf("\n 오마이 가씨~~~학점은 C입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=65){
+	printf("\n 어무이 죄송합니다!! 학점은 D+입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=60){
+	printf("\n 이번 과목은 재수강 각!! 학점은 D입니다. \n\n");
+	goto again;
+	}
+	else if (SCORES>=0){
+	printf("\n 어디서 좀 놀았군요!! 학점은 F입니다. \n\n");
+	goto again;
+	}
+	
+	//version 1.1
+	table1:
+	printf("\n [ 학점table ]version 1.1\n");
+	printf("┌──────────┬─────────┬─────────┬─────────┬─────────┬");
+	printf("─────────┬─────────┬─────────┬─────────┐\n");
+	printf("│    A+    │    A    │    B+   │    B    │    C+   │    C    │    D+   │    D    │    F    │\n");
+	printf("├──────────┼─────────┼─────────┼─────────┼─────────┼");
+	printf("─────────┼─────────┼─────────┼─────────┤\n");
+	printf("│ 100 ~ 95 │ 94 ~ 90 │ 89 ~ 85 │ 84 ~ 80 │ 79 ~ 75 │ 74 ~ 70 │ 69 ~ 65 │ 64 ~ 60 │ 59 ~ 0  │\n");
+	printf("└──────────┴─────────┴─────────┴─────────┴─────────┴");
+	printf("─────────┴─────────┴─────────┴─────────┘\n\n");
+	printf(" [ 학점 프로그램 ]\n\n * 종료를 원하시면 999을 입력하세요!!\n\n");
+	printf(" * 학점table 다시보기를 원하시면 1004(v1.0) 또는 1005(v1.1)을 입력하세요\n\n");//version 1.1 (add) 
+	printf(" * version 1.1을 원하시면 1001을 입력하세요\n\n");//version 1.1 (add) 
+	printf(" * version 1.0을 원하시면 1000을 입력하세요\n\n");//version 1.1 (add) 
+	version1 :
+	printf("\n version 1.1 \n\n");//version 1.1 (add)
+	again1:
+	printf("  Question. 성적을 입력하세요 : ");
+	scanf("%d", &SCORES);
+	if (SCORES==999){
+	printf("\n 프로그램을 종료 합니다. *^^*\n\n");
+	return 0;
+	}
+	else if (SCORES==1001){
+	printf("\n version1.1로 이동합니다. *^^*\n\n");
+	goto version1;//version 1.1 (add) 
+	}
+	else if (SCORES==1000){
+	printf("\n version1.0로 이동합니다. *^^*\n\n");
+	goto version;//version 1.1 (add) 
+	}
+	else if (SCORES==1004){
+	printf("\n version1.0로 이동합니다. *^^*\n\n");
+	goto table;//version 1.1 (add) 
+	}
+	else if (SCORES==1005){
+	printf("\n version1.1로 이동합니다. *^^*\n\n");
+	goto table1;//version 1.1 (add) 
+	}
+	else if (SCORES>100){
+	printf("\n $$ 놉놉놉 %d 성적을 올바르게 입력해 주세요. *^^*\n\n",SCORES);
+	goto again1;
+	}
+	else if (SCORES<0){
+	printf("\n $$ 놉놉놉 %d 성적을 올바르게 입력해 주세요. \n\n",SCORES);
+	goto again1;
+	}
+	else if (SCORES<60){
+	printf("\n *학점은 F입니다. *^0^*\n\n");
+	goto again1;
+	}
+	else
+	for(NUMBER_OF_GRADES=0;NUMBER_OF_GRADES<=8;NUMBER_OF_GRADES++){
+		for(VARIABLE_OF_GRADES=1;SCORES+VARIABLE_OF_GRADES<=95;VARIABLE_OF_GRADES+=5);
+	}
+	printf("\n *학점은 %s입니다. *^0^*\n\n",GRADES[VARIABLE_OF_GRADES/5]);
+	goto again1;
+    return 0;
+	/*
+	version 1.0은 배열 사용 없이 조건문만을 이용하여 작성하였습니다.
+	- 사용자를 고려하여 문자기호를 이용한 표를 삽입하였습니다.
+	* 문자기호를 변수로 지정하여 중복되는 기호를 반복문으로 작성해하여 효율적으로 코딩하려 했으나
+	 변수 지정시 기호를 출력 하지 못함 ㅠㅠ 
+	version 1.1에서는 기존 조건문 외에 반복문가 문자열을 사용하여 좀 더 효율적인 코딩을 하였습니다.
+	- version 1.0과 호환하여 사용할 수 있도록 하였으며, 입력량이 많아 학점table이 보이지 않을 경우를 
+	  고려하여 table recall이 가능 하도록 하였습니다.
+	* 기호문제를 여전히 해결하지 못하였고 argc 또는 argv 인자 활용의 필요성이나 활용방법을 아직 인지하기
+	어려움 개인적으로  반환값의 다양함과 사용자와의 교감이 중시된다면 나는 비효율적이긴 하지만 version 1.0이 좋아요. 
+	*/
+
+}
