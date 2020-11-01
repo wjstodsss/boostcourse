@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+char NUMBER1[5];//잘몰라서 정렬하려면 문자열일것 같아서 자료형 char으로 일단 정함
+char NUMBER2[5];//나중에 여기에 맞춰서 하려고 3일 걸림/자료형이 중요하다고 깨달았지만 머리에 남진 않음 더 고생해야함
+int Var1;//자료형 char에 scanf 입력시 콤마 구분 인식이 어렵고 숫자가 막 a에만 저장되고 힘들게 해서 정수 변수 선언   
+int Var2;//막 그냥 자료형 중요!! 개략적 설계는 나오는데 재료를 뭘 갔다써야 할지 제약이 많음
+char bubble(char* x);//목표한데로 일단 문자열로 정렬함 파다보면 다됨ㅎㅎ
+int main(void){
+    printf("\n version1.0");
+    printf("\n\n [안녕하세요. 숫자 애너그램 프로그램 \"어구전철\"입니다.]");
+    printf("\n\n 프로그램 종료를 원하시면 999를 입력해 주세요");
+    
+    re://다섯자리 정수이상 입력시, 연산 완료 시 회귀 포인트
+	printf("\n\n 첫번째 다섯자리 정수를 입력하세요 : ");
+    scanf("%d",&Var1);
+    if(Var1==999){
+        printf("\n 프로그램을 종료 합니다.\n\n");
+        return 0;
+    }
+    else if(Var1<10000||Var1>99999){
+    printf("\n warring!! 선생님 다섯자리 정수로 입력 부탁드립니다. ");
+    goto re;
+    }
+    sprintf(NUMBER1,"%d",Var1);
+    printf("\n 두번째 다섯자리 정수를 입력하세요 : ");
+	scanf("%d",&Var2);
+    if(Var2==999){
+    printf("\n 프로그램을 종료 합니다.\n\n");
+    return 0;
+    }
+    else if(Var2<10000||Var2>99999){
+    printf("\n warring!! 선생님 다섯자리 정수로 입력 부탁드립니다. ");
+    goto re;
+    }
+    sprintf(NUMBER2,"%d",Var2);
+    //정수 문자열 변환 stdio.h
+    *NUMBER1=bubble(NUMBER1);
+    *NUMBER2=bubble(NUMBER2);
+    if(strcmp(NUMBER1,NUMBER2)!=0)
+        printf("\n 오답입니다. 빵!! : felse");
+    else
+        printf("\n 정답입니다. 굿!! : true");
+    goto re;
+    return 0;
+}
+char bubble(char* x){
+    int i, j, temp;
+    for(i=0;i<5;i++){
+        for(j=0;j<4-i;j++){
+            if(x[j]>x[j+1]){
+                temp = x[j];
+                x[j] = x[j+1];
+                x[j+1] = temp;
+            }
+        }
+    }
+    return *x;
+}
