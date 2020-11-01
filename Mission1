@@ -1,9 +1,10 @@
 #include <stdio.h>
 int main(void){
-	static int order;//주문량 
+	static int order;//주문량
+	int Order_Count = 0;//주문건수 
 	int stock = 5;//재고량 
 	int price = 10000;//가격
-	float tax = 0.1;//부가세율  
+	float tax = 0.1;//부가세율
 	again:
 	printf("\n 찰리가 놀라고 엘사도 얼려버린 달고 시원한 수박이 1통에 10,000원입니다만, 어서 구매해주세요\n\n");
 	printf(" 주문 수량을 입력 하세요 : ");
@@ -11,6 +12,7 @@ int main(void){
 	if (stock-order >= 0){
 		printf("\n 구매 금액은 %.0f원 입니다. 구매해 주셔서 감사합니다.\n",order*price*(1+tax));
 		printf("\n 폐사는 허위 과장 광고를 지양합니다. (주)초콜릿겨울수박");
+		Order_Count++;
 	}
 	else{ 
 		printf("\n 현재 고객님께서 최대 구매 가능 수량은 %d통 입니다.\n", stock);
@@ -18,7 +20,7 @@ int main(void){
 		goto again;
 	}
 		printf("\n\n ------------------------------------------------------------");
-		printf("\n\n 주문건수 : %d\n\n 기존 재고량 : %d통", order, stock);
+		printf("\n\n 주문건수 : %d\n\n 기존 재고량 : %d통", Order_Count, stock);
 		printf("\n\n 남은 재고량 : %d\n\n 매출액(부가세포함) : %.0f원", stock-order, order*price*(1+tax));
 	return 0; 
 	
