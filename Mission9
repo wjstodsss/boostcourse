@@ -1,0 +1,233 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+ char* input;
+
+ typedef struct stack{
+    int top;
+    int capacity;
+    char* array;
+ } Stack;
+
+ Stack* createStack(int capacity);
+ int isFull(Stack* stack);
+ int isEmpty(Stack* stack);
+ void push(Stack* stack, char item);
+ char pop(Stack* stack);
+ int peek(Stack* stack);
+
+ int main(void){
+    
+	input = (char*)malloc(sizeof(input));
+    
+    
+	int i;
+	int k=1;
+	int countOfoperator=0;
+    int countOfbracket=0;
+    printf("\n final mission 3 '역폴란드식표현'\n\n");
+	printf(" 프로그램 종료를 원하시면 999를 입력하세요\n\n");
+	
+	while(1){
+	
+	printf(" input : ");
+    
+	scanf("%s", input);
+
+    if(atoi(input)==999){
+    	printf(" \n프로그램을종료합니다. *^0^*\n");
+        return 0;
+    }
+
+    Stack* Operator_stack = createStack(strlen(input));
+    Stack* outPut_stack = createStack(strlen(input));
+    
+     //Start
+	 for(i=0;i<strlen(input);i++){
+    	//Lv.1
+        if(input[i]=='('){
+            countOfbracket++;
+			k*=10;
+            //Lv.2 
+            for(countOfbracket=countOfbracket+0;countOfbracket>0;countOfbracket--){
+				i++;
+            	//Lv.3
+            	while(input[i]!=')'){
+                	//Lv.4    
+                	if(input[i]=='('){
+                		k*=10;
+                    	countOfbracket++;
+                        i++;
+        			}
+                	//Lv.4
+                	else if(input[i]=='+'||input[i]=='-'||input[i]=='*'||input[i]=='/'){
+                		//Lv.5
+                		if(countOfoperator<k){
+                    		push(Operator_stack,input[i]);
+                    		countOfoperator+=k;
+                    	    i++;///////
+                		}
+                		//Lv.5
+                		else if (input[i]=='*'||input[i]=='/'){					
+							//Lv.6
+							if(Operator_stack->array[Operator_stack->top]=='*'||Operator_stack->array[Operator_stack->top]=='/'){                   						
+								push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                    			pop(Operator_stack); 
+                    			push(Operator_stack,input[i]);
+                    			i++;/////
+                			}
+                			//Lv.6
+                			else {
+                    			push(Operator_stack,input[i]);
+                    			countOfoperator+=k;
+                    			i++;
+                			}
+               			}
+               			//Lv.5
+                		else{              
+                        	//Lv.6
+                        	if(Operator_stack->array[Operator_stack->top]=='*'||Operator_stack->array[Operator_stack->top]=='/'){               
+                            	//Lv.7
+								for(countOfoperator=countOfoperator+0;countOfoperator>=k;countOfoperator-=k){                              	
+									push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                                	pop(Operator_stack);                          
+								}
+                            	push(Operator_stack,input[i]);
+                            	countOfoperator+=k;
+                            	i++;
+                            }
+                        	//Lv.6 
+                        	else{                           	
+								push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                            	pop(Operator_stack); 
+								push(Operator_stack,input[i]);
+                            	i++;
+                        
+                        	}
+               			}
+                	}
+                	//Lv.4 
+                	else{
+                    	push(outPut_stack,input[i]);
+                    	i++;
+                	}
+            	}
+            	//Lv.3
+            	if(input[i]==')'){                
+                	//Lv.4
+                	for(countOfoperator=countOfoperator+0;countOfoperator>=k;countOfoperator-=k){
+                		push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                    	pop(Operator_stack); 
+                	}
+                	k/=10;
+                	//Lv.4
+                	for(countOfoperator=countOfoperator+0;countOfoperator>=k;countOfoperator-=k){
+                    push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                    pop(Operator_stack); 
+                	}
+            	}
+            
+           }
+       }           
+        //Lv.1
+        else if(input[i]=='+'||input[i]=='-'||input[i]=='*'||input[i]=='/'){           	
+            //Lv.2
+            if(countOfoperator<k){
+                push(Operator_stack,input[i]);
+                countOfoperator+=k;
+                }                
+            //Lv.2
+            else if (input[i]=='*'||input[i]=='/'){
+				//Lv.3
+				if(Operator_stack->array[Operator_stack->top]=='*'||Operator_stack->array[Operator_stack->top]=='/'){                   
+					push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                    pop(Operator_stack); 
+                    push(Operator_stack,input[i]);
+                }
+                //Lv.3
+                else {                    
+					push(Operator_stack,input[i]);
+					countOfoperator+=k;
+                }
+            }
+            //Lv.2     
+            else{
+                //Lv.3 
+                if(Operator_stack->array[Operator_stack->top]=='*'||Operator_stack->array[Operator_stack->top]=='/'){                                 
+                     //Lv.4
+					for(countOfoperator=countOfoperator+0;countOfoperator>=k;countOfoperator-=k){                               
+						push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                        pop(Operator_stack);                           
+                    }                            
+					push(Operator_stack,input[i]);
+                    countOfoperator+=k;
+                }
+                //Lv.3 
+                else{
+                 	push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+                    pop(Operator_stack); 
+					push(Operator_stack,input[i]);                            
+                }
+            }            
+        }   
+    	//Lv.1
+        else {
+			push(outPut_stack,input[i]);
+    	}
+            
+    }
+    printf(" result: ");
+	//empty the Operator_stack  
+    for(countOfoperator=countOfoperator+0;countOfoperator>0;countOfoperator--){
+	push(outPut_stack,Operator_stack->array[Operator_stack->top]);
+	pop(Operator_stack);
+    }
+    //output
+    for(i=0;i<strlen(outPut_stack->array);i++){
+    printf("%c", outPut_stack->array[i]);
+    }    
+    printf("\n");
+    free(outPut_stack->array);
+    free(input);
+    free(outPut_stack);
+    free(Operator_stack);
+ }
+}
+
+ Stack* createStack(int capacity) {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (char *)malloc(stack->capacity*sizeof(char));
+    return stack;
+ }
+
+ int isFull(Stack* stack) {
+    return stack->top == stack->capacity-1;
+ }
+
+ int isEmpty(Stack* stack) {
+    return stack->top == -1;
+ }
+ void push(Stack* stack, char item) {
+    if (isFull(stack)){
+    return;
+    }
+    stack->array[++stack->top] = item;
+ }
+ char pop(Stack* stack) {
+    if(stack->top<0){
+        isEmpty(stack);
+    printf("empty stack");
+    return 0;
+    }
+    int tmp = stack->array[stack->top];
+    stack->array[stack->top]=0;
+    stack->top--;
+    return tmp;
+ }
+ int peek(Stack* stack) {
+    printf("%d\n", stack->array[stack->top]);
+    return 0;
+ }
