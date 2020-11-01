@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//스택 구조체 LIFO 마지막삽입 값위치 top, 스택 크기 capacity, 자료형태(배열) pointer array
+typedef struct stack{
+    int top;
+    int capacity;
+    int* array;
+} Stack;
+
+//스택생성 크기를 정수 값으로 받아서 생성
+Stack* createStack(int capacity) {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));//크기 설정값에 따른 스택 메모리 동적할당
+    stack->capacity = capacity;//크기를 인수로 받음
+    stack->top = -1;//배열의 첫번째 주소가 0인것을 고려하여 스택에 아무것도 없을 때는 -1로 설정
+    stack->array = (int *)malloc(stack->capacity*sizeof(int));//크기 설정값에 따른 스택 자료 메모리 동적할당
+    
+    //변수에 따른 배열 크기 확인
+    /*<test code>
+    for(int i=0;i<stack->capacity;i++){
+    printf(" %d/%d", i , stack->array[i]);//<해석> i번째/배열값 =stack 크기 확인
+    }
+    printf("\n");*/
+    return stack;
+}
+
+//스택이 가득 찼을 경우 확인
+int isFull(Stack* stack) {
+    /*stack->top의 값변화 확인
+    <test code>
+    printf(" %d=%d? ", stack->top, stack->capacity-1);*/
+    return stack->top == stack->capacity-1;
+}
+int isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
+
+//자료 삽입 (자료형 void 리턴 값 없음)
+void push(Stack* stack, int item) {
+    if (isFull(stack)){
+    /*스택이 가득찬 경우 확인
+    <test code>
+    printf(" out ");*/
+    return;
+    }
+    stack->array[++stack->top] = item;//stack->array[++i] 이런 느낌으로 해석
+    printf("%d pushed to stack\n", item);
+}
+
+//스택의 마지막 삽입값 표시 및 삭제(0으로 초기화)
+int pop(Stack* stack) {
+    if(stack->top==-1){
+        return -9999;
+    }//스택이 비어있을 때 팝할 경우 -9999반환
+    int tmp = stack->array[stack->top];//임시 저장소tmp 선언 표시할 값 저장
+    //stack->array[stack->top]=0;//표시값 0으로 초기화
+    --stack->top;//마지막 삽입값의 주소 -1
+    return tmp;//임시저장한 값을 반환하여 메인함수에서 출력
+}
+
+//마지막 삽입 표시
+int peek(Stack* stack) {
+    printf("%d\n", stack->array[stack->top]);
+    return 0;
+}
+
+int main() {
+    Stack* stack = createStack(10);
+    push(stack, 10);
+    push(stack, 20);
+    //마지막 삽입 표시
+    //peek(stack);
+    push(stack, 30);
+    push(stack, 40);   
+    printf("%d pop from stack\n", pop(stack));
+    printf("%d pop from stack\n", pop(stack));
+    push(stack, 50);
+    //스택 배열 저장 값 확인(쓰레기값 존재-> pop()에서 삭제 후 0으로 설정)
+   free(stack);
+    //<test code>
+    int i;
+    for(i=0;i<stack->capacity;i++){
+    printf(" %d", stack->array[i]);
+    }
+    printf("\n");
+   
+    return 0;
+}
